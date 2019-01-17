@@ -19,9 +19,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:padding="15dp"
-                android:rowCount="3">
+                android:rowCount="3" android:columnCount="2">
 
             <EditText
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:id="@+id/textMessage"
                     android:hint="Word..."
                     android:layout_row="0"
@@ -29,8 +32,20 @@
                     android:spinnerMode="dropdown"
                     android:drawSelectorOnTop="true"
                     android:inputType="textAutoComplete"
-                    android:layout_width="match_parent">
+                    >
             </EditText>
+
+
+            <TextView
+                    android:id="@+id/txtStatus"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_row="1"
+
+                    android:layout_column="0"
+
+                    android:text="Type"
+                    android:textSize="16sp" />
 
         </GridLayout>
 

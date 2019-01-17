@@ -91,10 +91,10 @@ class MainActivity : AppCompatActivity() {
 
         try {
             val random = Random()
-            sendMessage = Message("{ \"mes\":\"{$value}\", \"id\": "+ random.nextInt(5000) + 1 +" }")
+            sendMessage = Message("{ \"mes\":\""+value+"\", \"id\": "+ random.nextInt(5000) + 1 +" }")
             sendMessage.setMessageId(java.util.UUID.randomUUID().toString())
             println(value)
-
+            txtStatus.text = "Your message was sent!"
             val eventCallback = EventCallback()
             client.sendEventAsync(sendMessage, eventCallback, 1)
         } catch (e: Exception) {
