@@ -1,0 +1,14 @@
+{
+  "name": "iotmessenger-pi",
+  "version": "1.0.0",
+  "description": "an application",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "azure"
+  ],
+  "author": "ok",
+  "license": "ISC"
+}
