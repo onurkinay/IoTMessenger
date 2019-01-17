@@ -19,7 +19,6 @@ import java.io.IOException
 import java.net.URISyntaxException
 import java.util.*
 
-
 class MainActivity : AppCompatActivity() {
     private var connString = "HostName=messenger.azure-devices.net;DeviceId=pi;SharedAccessKey=8a26D9kC5PJLVfrEFcWA/1tdk0K8hlt3WNHDZJcHDaQ="
     private var sendMessage: Message = Message("{ \"mes\":\"Hi World\", \"id\":65 }")
@@ -79,6 +78,10 @@ class MainActivity : AppCompatActivity() {
 
         try {
             client.open()
+            val callback = MessageCallback()
+            client.setMessageCallback(callback, null)
+
+
         } catch (e2: Exception) {
             System.err.println("Exception while opening IoTHub connection: " + e2.message)
             client.closeNow()
@@ -87,19 +90,31 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+     internal inner class MessageCallback : com.microsoft.azure.sdk.iot.device.MessageCallback {
+       override fun execute(msg: Message, context: Any): IotHubMessageResult {
+            println(
+                "Received message with content: " + String(msg.bytes, Message.DEFAULT_IOTHUB_MESSAGE_CHARSET)
+            )
+            txtStatus.text = String(msg.bytes, Message.DEFAULT_IOTHUB_MESSAGE_CHARSET)
+            return IotHubMessageResult.COMPLETE
+        }
+    }
+
     private fun send(value: String) {
 
         try {
             val random = Random()
             sendMessage = Message("{ \"mes\":\""+value+"\", \"id\": "+ random.nextInt(5000) + 1 +" }")
             sendMessage.setMessageId(java.util.UUID.randomUUID().toString())
-            println(value)
+
             txtStatus.text = "Your message was sent!"
+            
             val eventCallback = EventCallback()
             client.sendEventAsync(sendMessage, eventCallback, 1)
         } catch (e: Exception) {
         }
 
     }
+
 
 }
