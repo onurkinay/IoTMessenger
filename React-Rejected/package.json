@@ -7,17 +7,26 @@
     "eject": "expo eject"
   },
   "dependencies": {
+    "@azure/event-hubs": "^1.0.8",
     "@fortawesome/fontawesome-svg-core": "^1.2.12",
     "@fortawesome/free-brands-svg-icons": "^5.6.3",
     "@fortawesome/free-regular-svg-icons": "^5.6.3",
     "@fortawesome/free-solid-svg-icons": "^5.6.3",
     "@fortawesome/react-fontawesome": "^0.1.4",
+    "azure-iot-device": "^1.9.1",
+    "azure-iot-device-http": "^1.9.1",
+    "azure-iot-device-mqtt": "^1.9.1",
+    "events": "^3.0.0",
     "expo": "^32.0.0",
+    "fs": "0.0.1-security",
     "ip": "^1.1.5",
     "node-ip": "^0.1.2",
+    "querystring": "^0.2.0",
     "react": "16.5.0",
     "react-dom": "^16.7.0",
-    "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz"
+    "react-native": "https://github.com/expo/react-native/archive/sdk-32.0.0.tar.gz",
+    "url": "^0.11.0",
+    "uuid": "^3.3.2"
   },
   "devDependencies": {
     "babel-preset-expo": "^5.0.0"

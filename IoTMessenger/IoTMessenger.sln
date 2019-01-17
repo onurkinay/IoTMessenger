@@ -1,0 +1,33 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.28307.271
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IoTMessenger.Android", "IoTMessenger\IoTMessenger.Android\IoTMessenger.Android.csproj", "{F43F7981-CB53-4534-A394-153576C77DA9}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IoTMessenger", "IoTMessenger\IoTMessenger\IoTMessenger.csproj", "{3FF8D8DE-22DB-4D36-8402-E93C5C6CBA70}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{F43F7981-CB53-4534-A394-153576C77DA9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{F43F7981-CB53-4534-A394-153576C77DA9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{F43F7981-CB53-4534-A394-153576C77DA9}.Debug|Any CPU.Deploy.0 = Debug|Any CPU
+		{F43F7981-CB53-4534-A394-153576C77DA9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{F43F7981-CB53-4534-A394-153576C77DA9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{F43F7981-CB53-4534-A394-153576C77DA9}.Release|Any CPU.Deploy.0 = Release|Any CPU
+		{3FF8D8DE-22DB-4D36-8402-E93C5C6CBA70}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3FF8D8DE-22DB-4D36-8402-E93C5C6CBA70}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3FF8D8DE-22DB-4D36-8402-E93C5C6CBA70}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3FF8D8DE-22DB-4D36-8402-E93C5C6CBA70}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {83EDFE8B-9E35-4850-8320-B5AD86D81B9D}
+	EndGlobalSection
+EndGlobal
