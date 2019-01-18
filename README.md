@@ -28,3 +28,4 @@ There are two connection string in...
  5. For use your Android phone, you can install the application using Android Studio
 
  If you have a question, send me email -> onurkinay@outlook.com
+ If you have found a bug, please submit issue
