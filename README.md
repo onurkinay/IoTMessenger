@@ -27,5 +27,5 @@ There are two connection string in...
  4. If you can see "All system ready. Stand by..." from LCD, you will send message from the Android application
  5. For use your Android phone, you can install the application using Android Studio
 
- If you have a question, send me email -> onurkinay@outlook.com
+ If you have a question, send me email -> ben@onurkinay.com.tr
  If you have found a bug, please submit issue
