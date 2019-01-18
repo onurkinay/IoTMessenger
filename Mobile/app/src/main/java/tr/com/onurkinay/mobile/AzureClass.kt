@@ -17,7 +17,7 @@ import java.util.function.Consumer
 
  class AzureClass(mainAc: MainActivity) : AppCompatActivity() {
      private var mainAcc = mainAc
-    var connString = "HostName=messenger.azure-devices.net;DeviceId=pi;SharedAccessKey=8a26D9kC5PJLVfrEFcWA/1tdk0K8hlt3WNHDZJcHDaQ="
+    var connString = "{your IoT Hub Connection String, you get from your IoT Hub's Shared access policies}"
     var sendMessage: Message = Message("{ \"mes\":\"Hi World\", \"id\":65 }")
     var protocol = IotHubClientProtocol.MQTT
     var client: DeviceClient = DeviceClient(connString, protocol)
@@ -25,13 +25,13 @@ import java.util.function.Consumer
     var result: MethodResult? = null
 
     // az iot hub show --query properties.eventHubEndpoints.events.endpoint --name {your IoT Hub name}
-    val eventHubsCompatibleEndpoint = "sb://ihsuprodblres025dednamespace.servicebus.windows.net/"
+    val eventHubsCompatibleEndpoint = ""
 
     // az iot hub show --query properties.eventHubEndpoints.events.path --name {your IoT Hub name}
-    val eventHubsCompatiblePath = "iothub-ehub-messenger-1204997-c892a2c5ba"
+    val eventHubsCompatiblePath = ""
 
     // az iot hub policy show --name iothubowner --query primaryKey --hub-name {your IoT Hub name}
-    val iotHubSasKey = "5Tnmp1ItP/r/Sr3pM98uQauTwlXxVus0pi1R+WVbjns="
+    val iotHubSasKey = ""
     val iotHubSasKeyName = "iothubowner"
 
     // Track all the PartitionReciever instances created.
