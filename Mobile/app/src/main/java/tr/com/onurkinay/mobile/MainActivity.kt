@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.support.v7.app.AppCompatActivity
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 
 import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.content_main.*
@@ -47,7 +48,12 @@ class MainActivity : AppCompatActivity() {
 
         fab.setOnClickListener { view ->
             run {
+                if(textMessage.isEnabled){
                 azure.send(textMessage.text.toString())
+                textMessage.isEnabled = false
+            }else{
+                    Toast.makeText(this@MainActivity, "You can't send message because your message hasn't been read yet", Toast.LENGTH_SHORT).show()
+                }
             }
         }
 
@@ -69,10 +75,10 @@ class MainActivity : AppCompatActivity() {
             else -> super.onOptionsItemSelected(item)
         }
     }
-
     fun getMessage(mes: String?) {
         txtStatus.text = mes
+        if(txtStatus.text.toString().contains("READ", ignoreCase = true)){
+            textMessage.isEnabled = true
+        }
     }
-
-
 }

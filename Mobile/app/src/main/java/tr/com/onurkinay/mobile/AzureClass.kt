@@ -1,7 +1,6 @@
 package tr.com.onurkinay.mobile
 
 import android.support.v7.app.AppCompatActivity
-import com.kenai.jffi.Main
 import com.microsoft.azure.eventhubs.EventHubClient
 import com.microsoft.azure.eventhubs.EventHubException
 import com.microsoft.azure.eventhubs.EventPosition
@@ -18,8 +17,7 @@ import java.util.function.Consumer
 
  class AzureClass(mainAc: MainActivity) : AppCompatActivity() {
      private var mainAcc = mainAc
-    var connString =
-        "HostName=messenger.azure-devices.net;DeviceId=pi;SharedAccessKey=8a26D9kC5PJLVfrEFcWA/1tdk0K8hlt3WNHDZJcHDaQ="
+    var connString = "HostName=messenger.azure-devices.net;DeviceId=pi;SharedAccessKey=8a26D9kC5PJLVfrEFcWA/1tdk0K8hlt3WNHDZJcHDaQ="
     var sendMessage: Message = Message("{ \"mes\":\"Hi World\", \"id\":65 }")
     var protocol = IotHubClientProtocol.MQTT
     var client: DeviceClient = DeviceClient(connString, protocol)
