@@ -15,7 +15,7 @@ var Lcd = require('lcd'),
   });
 
 //AZURE IOT HUB -- BEGIN
-var connectionString = 'HostName=messenger.azure-devices.net;SharedAccessKeyName=iothubowner;SharedAccessKey=5Tnmp1ItP/r/Sr3pM98uQauTwlXxVus0pi1R+WVbjns=';
+var connectionString = '{your IoT Hub Connection String, you get from your IoT Hub's Shared access policies}';
 var {
   EventHubClient,
   EventPosition
@@ -28,7 +28,7 @@ var Client = require('azure-iot-device').Client;
 var Message = require('azure-iot-device').Message;
 
 
-var connectionStringDevice = "HostName=messenger.azure-devices.net;DeviceId=pi;SharedAccessKey=8a26D9kC5PJLVfrEFcWA/1tdk0K8hlt3WNHDZJcHDaQ=";
+var connectionStringDevice = "{ IoT Hub Device Connection String }";
 
 if (!connectionStringDevice) {
     console.log('Please set the DEVICE_CONNECTION_STRING environment variable.');
@@ -69,13 +69,7 @@ var open = gpio.export(19, {
   direction: gpio.DIRECTION.IN,
 
   ready: function () {}
-});
-
-var alarm = gpio.export(26, {
-  direction: gpio.DIRECTION.OUT,
-
-  ready: function () {}
-});
+}); 
 
 function fixForLCD(message) {
 
@@ -138,8 +132,7 @@ down.on("change", function (val) {
 
 
 open.on("change", function (val) {
-  if (val == 0) {
-    alarm.unexport();
+  if (val == 0) { 
     i = 0;
     writeLCD(i); 
 
@@ -183,8 +176,7 @@ var printMessage = function (message) {
   lcd.once('printed', function () {
     lcd.setCursor(0, 1); // col 0, row 1
     lcd.print("press the button"); // print date 
-  });
-  alarm.set();
+  }); 
 }
 };
 var printError = function (err) {
