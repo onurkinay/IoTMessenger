@@ -1,3 +1,9 @@
+/*
+* THIS CLASS HAS SEND D2C MESSAGE AND RECEIVE MESSAGE
+*
+* MUST CHANGE LINE 27, 35, 38, 41
+* */
+
 package tr.com.onurkinay.mobile
 
 import android.support.v7.app.AppCompatActivity
@@ -16,6 +22,7 @@ import java.util.concurrent.Executors
 import java.util.function.Consumer
 
  class AzureClass(mainAc: MainActivity) : AppCompatActivity() {
+
      private var mainAcc = mainAc
     var connString = "{your IoT Hub Connection String, you get from your IoT Hub's Shared access policies}"
     var sendMessage: Message = Message("{ \"mes\":\"Hi World\", \"id\":65 }")
@@ -77,7 +84,7 @@ import java.util.function.Consumer
             sendMessage = Message("{ \"mes\":\"" + value + "\", \"id\": " + random.nextInt(5000) + 1 + " }")
             sendMessage.messageId = java.util.UUID.randomUUID().toString()
 
-            mainAcc.getMessage("The message was sent")
+            mainAcc.getMessage("The message was sent") // SEND D2C MESSAGE
 
             val eventCallback = EventCallback()
             client.sendEventAsync(sendMessage, eventCallback, 1)
@@ -111,7 +118,9 @@ import java.util.function.Consumer
                     // If there is data in the batch, process it.
                     if (receivedEvents != null) {
                         for (receivedEvent in receivedEvents!!) {
-                            var message = String(receivedEvent.bytes, Charsets.ISO_8859_1)
+
+                            var message = String(receivedEvent.bytes, Charsets.ISO_8859_1)//RECEIVED MESSAGE'S CONTENT
+
                             if (message.contains("idfP", ignoreCase = true)) {
                                 mainAcc.getMessage("The message was READ")
                             }

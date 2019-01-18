@@ -1,5 +1,4 @@
-/* 
-BUZZER AND LED -- BCM 37 -- GPIO 26
+/*  
 OPEN MESSAGE -- BCM 35 -- GPIO 19
 DOWN MESSAGE -- BCM 38 -- GPIO 20
 UP MESSAGE -- BCM 36 -- GPIO 16
@@ -15,7 +14,9 @@ var Lcd = require('lcd'),
   });
 
 //AZURE IOT HUB -- BEGIN
-var connectionString = '{your IoT Hub Connection String, you get from your IoT Hub's Shared access policies}';
+
+//MUST CHANGE
+var connectionString = '{your IoT Hub Connection String, you get from your IoT Hubs Shared access policies}'; 
 var {
   EventHubClient,
   EventPosition
@@ -28,7 +29,7 @@ var Client = require('azure-iot-device').Client;
 var Message = require('azure-iot-device').Message;
 
 
-var connectionStringDevice = "{ IoT Hub Device Connection String }";
+var connectionStringDevice = "{ IoT Hub Device Connection String }"; //MUST CHANGE
 
 if (!connectionStringDevice) {
     console.log('Please set the DEVICE_CONNECTION_STRING environment variable.');
@@ -71,8 +72,8 @@ var open = gpio.export(19, {
   ready: function () {}
 }); 
 
-function fixForLCD(message) {
-
+function fixForLCD(message) {//THIS CODE CAN FIX MESSAGE WHICH HAS 16 CHARACTERS OR MORE FOR LCD
+ 
   var list = [];
   var sixteen = "";
   for (var i = 1; i <= message.length; i++) {
@@ -92,28 +93,28 @@ function fixForLCD(message) {
 
 }
 
-function writeLCD(m) {
+function writeLCD(m) { // THE FUNCTION CAN WRITE MESSAGE WHICH COME FROM ANDROID
   lcd.clear();
-  lcd.setCursor(0, 0); // col 0, row 0
-  lcd.print(sample[m]); // print time
+  lcd.setCursor(0, 0); 
+  lcd.print(sample[m]);  
   lcd.once('printed', function () {
-    lcd.setCursor(0, 1); // col 0, row 1
-    lcd.print(sample[m + 1]); // print date 
+    lcd.setCursor(0, 1);  
+    lcd.print(sample[m + 1]);  
 
   });
 }
 
-function writeOutput(m1, m2){
+function writeOutput(m1, m2){ // THE FUNCTION IS STANDARD LCD WRITE CODES
   lcd.clear(); 
-  lcd.setCursor(0, 0); // col 0, row 0
-  lcd.print(m1); // print time
+  lcd.setCursor(0, 0);  
+  lcd.print(m1);  
   lcd.once('printed', function () {
-    lcd.setCursor(0, 1); // col 0, row 1
-    lcd.print(m2); // print date 
+    lcd.setCursor(0, 1); 
+    lcd.print(m2); 
   });
 }
 
-up.on("change", function (val) {
+up.on("change", function (val) {//IF UP BUTTON IS PRESSED
   if (val == 0) {
     i -= 1;
     if (i < 0) i = 0;
@@ -122,7 +123,7 @@ up.on("change", function (val) {
 });
 
 
-down.on("change", function (val) {
+down.on("change", function (val) {//IF DOWN BUTTON IS PRESSED
   if (val == 0) {
     i += 1;
     if (sample.length - 1 <= i) i = sample.length - 2;
@@ -131,11 +132,12 @@ down.on("change", function (val) {
 });
 
 
-open.on("change", function (val) {
+open.on("change", function (val) {//IF OPEN BUTTON IS PRESSED
   if (val == 0) { 
     i = 0;
     writeLCD(i); 
 
+    //SEND READ STATUS
     var message = new Message(JSON.stringify( {idfP: messageID} ));
 
     message.messageId = uuid.v4();
@@ -148,6 +150,8 @@ open.on("change", function (val) {
             console.log('Message sent: ' + message.messageId);
         }
     }); 
+    //!!SEND READ STATUS
+
   }
 });
 
@@ -156,31 +160,35 @@ lcd.on('ready', function () {
   
 });
 
-process.on('SIGINT', function () {
+process.on('SIGINT', function () {//EXIT PROGRAM
   lcd.clear();
   lcd.close();
   process.exit();
 });
 
 
+// IF THE APPLICATION GETS FROM AZURE D2C MESSAGE
+var printMessage = function (message) {// PRINT MESSAGE
+  if(message.body.idfP == null){// CHECK MESSAGE IS READ STATUS OR ISN'T
 
-var printMessage = function (message) {
-  if(message.body.idfP == null){
+  //IF MESSAGE COMES FROM ANDROID
   sample = fixForLCD(message.body.mes);
   messageID = message.body.id;
+
   console.log("Message ID: "+messageID);
   console.log(message.body.mes);
 
-  lcd.setCursor(0, 0); // col 0, row 0
-  lcd.print("There's message"); // print time
+  lcd.setCursor(0, 0);  
+  lcd.print("There's message");  
   lcd.once('printed', function () {
-    lcd.setCursor(0, 1); // col 0, row 1
-    lcd.print("press the button"); // print date 
+    lcd.setCursor(0, 1);  
+    lcd.print("press the button");  
   }); 
+  //!!IF MESSAGE COMES FROM ANDROID
 }
 };
 var printError = function (err) {
-  console.log(err.message);
+  console.log(err.message);// THERE IS ERROR
 };
 
 var ehClient;
@@ -191,7 +199,7 @@ EventHubClient.createFromIotHubConnectionString(connectionString).then(function 
 }).then(function (ids) {
     console.log("The partition ids are: ", ids);
   
-    writeOutput("All system ready", "Stand by...");
+    writeOutput("All system ready", "Stand by...");//SUCCESSFUL RUN APPLICATION
 
     return ids.map(function (id) {
         return ehClient.receive(id, printMessage, printError, {
@@ -199,3 +207,4 @@ EventHubClient.createFromIotHubConnectionString(connectionString).then(function 
         });
     });
 }).catch(printError);
+//!!IF THE APPLICATION GETS FROM AZURE D2C MESSAGE

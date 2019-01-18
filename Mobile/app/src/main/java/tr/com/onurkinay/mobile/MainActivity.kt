@@ -16,16 +16,20 @@ import java.util.concurrent.Executors
 import java.net.URI
 
 class MainActivity : AppCompatActivity() {
-    private val azure = AzureClass(this)
+
+    private val azure = AzureClass(this) //start azure class. Look AzureClass.kt
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
+
+        //azure starts
         try {
-            azure.initClient()
+            azure.initClient()//connect azure iothub
         } catch (e: Exception) {
         }
+
         val connStr = ConnectionStringBuilder()
             .setEndpoint(URI(azure.eventHubsCompatibleEndpoint))
             .setEventHubName(azure.eventHubsCompatiblePath)
@@ -45,6 +49,7 @@ class MainActivity : AppCompatActivity() {
         for (partitionId in eventHubInfo.partitionIds) {
             azure.receiveMessages(ehClient, partitionId)
         }
+        //azure ends
 
         fab.setOnClickListener { view ->
             run {
@@ -58,6 +63,12 @@ class MainActivity : AppCompatActivity() {
         }
 
 
+    }
+    fun getMessage(mes: String?) {
+        txtStatus.text = mes
+        if(txtStatus.text.toString().contains("READ", ignoreCase = true)){
+            textMessage.isEnabled = true
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu): Boolean {
@@ -75,10 +86,5 @@ class MainActivity : AppCompatActivity() {
             else -> super.onOptionsItemSelected(item)
         }
     }
-    fun getMessage(mes: String?) {
-        txtStatus.text = mes
-        if(txtStatus.text.toString().contains("READ", ignoreCase = true)){
-            textMessage.isEnabled = true
-        }
-    }
+
 }
