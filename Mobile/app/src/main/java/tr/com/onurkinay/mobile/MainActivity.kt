@@ -15,9 +15,9 @@ import java.util.concurrent.Executors
 import java.net.URI
 
 class MainActivity : AppCompatActivity() {
+    private val azure = AzureClass(this)
 
-    private val azure = AzureClass()
-    override fun onCreate(savedInstanceState: Bundle?)  {
+    override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
         setSupportActionBar(toolbar)
@@ -25,7 +25,6 @@ class MainActivity : AppCompatActivity() {
             azure.initClient()
         } catch (e: Exception) {
         }
-
         val connStr = ConnectionStringBuilder()
             .setEndpoint(URI(azure.eventHubsCompatibleEndpoint))
             .setEventHubName(azure.eventHubsCompatiblePath)
@@ -47,8 +46,8 @@ class MainActivity : AppCompatActivity() {
         }
 
         fab.setOnClickListener { view ->
-           run {
-               azure.send(textMessage.text.toString())
+            run {
+                azure.send(textMessage.text.toString())
             }
         }
 
@@ -71,8 +70,8 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    fun getMessage(mes:String?){
-        txtStatus.text =mes
+    fun getMessage(mes: String?) {
+        txtStatus.text = mes
     }
 
 

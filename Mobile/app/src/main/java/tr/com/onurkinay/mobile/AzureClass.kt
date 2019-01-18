@@ -1,6 +1,7 @@
 package tr.com.onurkinay.mobile
 
 import android.support.v7.app.AppCompatActivity
+import com.kenai.jffi.Main
 import com.microsoft.azure.eventhubs.EventHubClient
 import com.microsoft.azure.eventhubs.EventHubException
 import com.microsoft.azure.eventhubs.EventPosition
@@ -15,7 +16,8 @@ import java.util.concurrent.ExecutionException
 import java.util.concurrent.Executors
 import java.util.function.Consumer
 
- class AzureClass : AppCompatActivity() {
+ class AzureClass(mainAc: MainActivity) : AppCompatActivity() {
+     private var mainAcc = mainAc
     var connString =
         "HostName=messenger.azure-devices.net;DeviceId=pi;SharedAccessKey=8a26D9kC5PJLVfrEFcWA/1tdk0K8hlt3WNHDZJcHDaQ="
     var sendMessage: Message = Message("{ \"mes\":\"Hi World\", \"id\":65 }")
@@ -77,7 +79,7 @@ import java.util.function.Consumer
             sendMessage = Message("{ \"mes\":\"" + value + "\", \"id\": " + random.nextInt(5000) + 1 + " }")
             sendMessage.messageId = java.util.UUID.randomUUID().toString()
 
-            MainActivity().getMessage("The message was sent")
+            mainAcc.getMessage("The message was sent")
 
             val eventCallback = EventCallback()
             client.sendEventAsync(sendMessage, eventCallback, 1)
@@ -113,7 +115,7 @@ import java.util.function.Consumer
                         for (receivedEvent in receivedEvents!!) {
                             var message = String(receivedEvent.bytes, Charsets.ISO_8859_1)
                             if (message.contains("idfP", ignoreCase = true)) {
-                                MainActivity().getMessage("The message was READ")
+                                mainAcc.getMessage("The message was READ")
                             }
                         }
                     }
